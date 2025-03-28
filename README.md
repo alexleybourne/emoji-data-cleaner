@@ -9,9 +9,10 @@ This project optimizes the [emoji-data](https://github.com/iamcal/emoji-data) da
 - ✅ Reduces file size significantly (93.96% smaller! 1.71MB → 105.80KB)
 - 🔍 Maintains all searchable names
 - 🎨 Preserves skin tone variations
-- 📁 Keeps category organization
+- 📁 Organizes by category 
+- ↕️ Pre-sorts all emojis
 
-The optimized format is ideal for applications that need to include emoji data while minimizing bundle size.
+The optimized format is ideal for applications that need to include emoji data while minimizing sorting logic and bundle size.
 
 ## 📝 Data Source
 
