@@ -2,6 +2,8 @@
 
 A utility to optimize emoji data for efficient use in applications. This tool takes the raw emoji data and transforms it into a compact, optimized format while preserving all essential information.
 
+The original emoji data file size is 1.71 MB. This script removes the bits we don't need and organises it a little to make it 92.85% smaller (125.16kb) 🚀
+
 ## Overview
 
 This project optimizes the [emoji-data](https://github.com/iamcal/emoji-data) dataset from iamcal, transforming the verbose format into a minimal JSON structure that:
