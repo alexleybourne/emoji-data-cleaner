@@ -52,10 +52,10 @@ const processEmojiData = () => {
 			const skinTones = ['1F3FB', '1F3FC', '1F3FD', '1F3FE', '1F3FF'];
 			const variations: string[] = [];
 
-			// Create array of only the unified codes in predictable order
+			// Create array of only the skin tone codes with u- prefix for smaller file size
 			skinTones.forEach((tone) => {
 				if (skin_variations[tone]) {
-					variations.push(skin_variations[tone].unified);
+					variations.push(`u-${tone}`);
 				}
 			});
 

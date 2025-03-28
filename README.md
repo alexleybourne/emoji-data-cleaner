@@ -1,27 +1,25 @@
-# Emoji Data Optimizer
+# 🚀 Emoji Data Optimizer
 
 A utility to optimize emoji data for efficient use in applications. This tool takes the raw emoji data and transforms it into a compact, optimized format while preserving all essential information.
 
-The original emoji data file size is 1.71 MB. This script removes the bits we don't need and organises it a little to make it 92.85% smaller (125.16kb) 🚀
-
-## Overview
+## 📊 Overview
 
 This project optimizes the [emoji-data](https://github.com/iamcal/emoji-data) dataset from iamcal, transforming the verbose format into a minimal JSON structure that:
 
-- Reduces file size significantly
-- Maintains all searchable names
-- Preserves skin tone variations
-- Keeps category organization
+- ✅ Reduces file size significantly (93.96% smaller! 1.71MB → 105.80KB)
+- 🔍 Maintains all searchable names
+- 🎨 Preserves skin tone variations
+- 📁 Keeps category organization
 
 The optimized format is ideal for applications that need to include emoji data while minimizing bundle size.
 
-## Data Source
+## 📝 Data Source
 
 Raw emoji data (`RawEmojiData.json`) is sourced from [iamcal/emoji-data](https://github.com/iamcal/emoji-data/blob/master/emoji.json).
 
-## Usage
+## 🔧 Usage
 
-### Installation
+### 📦 Installation
 
 ```bash
 # Clone the repository
@@ -32,7 +30,7 @@ cd <repository-directory>
 yarn install
 ```
 
-### Commands
+### 💻 Commands
 
 ```bash
 # Process and optimize the emoji data
@@ -45,7 +43,7 @@ yarn emoji info
 yarn emoji help
 ```
 
-### Using the Optimized Data
+### 🧩 Using the Optimized Data
 
 Once processed, you can import and use the optimized data in your project:
 
@@ -71,7 +69,7 @@ const findEmojiByName = (searchTerm) => {
 const thumbsUp = findEmojiByName('thumbs up');
 ```
 
-## Data Format
+## 💾 Data Format
 
 The optimized `EmojiData.json` uses the following compact structure:
 
@@ -81,7 +79,7 @@ The optimized `EmojiData.json` uses the following compact structure:
     {
       "n": ["emoji name", "alternative name", "another name"],
       "u": "1F44D",  // Unicode codepoint
-      "v": ["1F44D-1F3FB", "1F44D-1F3FC"]  // Optional skin tone variations
+      "v": ["u-1F3FB", "u-1F3FC"]  // Optional skin tone variations (optimized!)
     },
     // More emojis...
   ],
@@ -92,8 +90,8 @@ The optimized `EmojiData.json` uses the following compact structure:
 Where:
 - `n`: Array of names, including the primary name and alternatives
 - `u`: Unicode representation of the emoji
-- `v`: Optional array of skin tone variations
+- `v`: Optional array of skin tone variations (using the u- prefix to save space)
 
-## License
+## 📜 License
 
 This project is available under the MIT License. The original emoji data is from iamcal's emoji-data project. 

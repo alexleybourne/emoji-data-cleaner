@@ -27,13 +27,13 @@ export type CompactEmoji = {
   
   /** 
    * Variations array - contains skin tone variations if applicable
-   * Each value is the unicode with a skin tone modifier appended
-   * Light skin tone: 1F3FB
-   * Medium-light skin tone: 1F3FC
-   * Medium skin tone: 1F3FD
-   * Medium-dark skin tone: 1F3FE
-   * Dark skin tone: 1F3FF
-   * Example: ["1F44C-1F3FB", "1F44C-1F3FC", "1F44C-1F3FD", "1F44C-1F3FE", "1F44C-1F3FF"]
+   * Each value uses the format "u-{SKIN_TONE}" to save space, omitting the base emoji code
+   * Light skin tone: u-1F3FB
+   * Medium-light skin tone: u-1F3FC
+   * Medium skin tone: u-1F3FD
+   * Medium-dark skin tone: u-1F3FE
+   * Dark skin tone: u-1F3FF
+   * Example: ["u-1F3FB", "u-1F3FC", "u-1F3FD", "u-1F3FE", "u-1F3FF"]
    */
   v?: string[];
 };
