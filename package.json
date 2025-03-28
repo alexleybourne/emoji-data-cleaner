@@ -1,0 +1,23 @@
+{
+	"name": "emoji-data-optimizer",
+	"version": "1.0.0",
+	"description": "Utility to optimize emoji data for efficient use in applications",
+	"main": "emoji-cli.ts",
+	"scripts": {
+		"clean": "ts-node cleanEmoji.ts",
+		"emoji": "ts-node emoji-cli.ts",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"emoji",
+		"data",
+		"optimization",
+		"json"
+	],
+	"author": "",
+	"license": "MIT",
+	"devDependencies": {
+		"ts-node": "^10.9.2",
+		"typescript": "^5.4.2"
+	}
+}
