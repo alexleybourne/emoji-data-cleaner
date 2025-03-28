@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import { CompactEmoji, EmojiCategories } from './emojiTypes';
+import { execSync } from 'child_process';
 
 // Read the original emoji data
 const emojiData = JSON.parse(fs.readFileSync('./RawEmojiData.json', 'utf8'));
@@ -94,7 +95,7 @@ const processEmojiData = () => {
 	
 	Object.keys(categorizedEmojis).forEach((category) => {
 		// Keep original category names as is
-		compactEmojis[category] = categorizedEmojis[category];
+		compactEmojis[category as keyof EmojiCategories] = categorizedEmojis[category];
 	});
 
 	return compactEmojis;
@@ -112,6 +113,14 @@ const compactSize = fs.statSync('./EmojiData.json').size;
 const reduction = (((originalSize - compactSize) / originalSize) * 100).toFixed(
 	2
 );
+
+// Generate type definitions based on the processed data
+console.log('🔄 EmojiScript: Generating type definitions...');
+try {
+  execSync('npx ts-node generateEmojiTypes.ts');
+} catch (error) {
+  console.error('❌ Error generating type definitions:', error);
+}
 
 console.log(`🧹 EmojiScript: Processing complete!`);
 console.log(

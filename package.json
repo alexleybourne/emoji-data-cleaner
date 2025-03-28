@@ -7,7 +7,7 @@
 		"clean": "ts-node src/utils/cleanEmoji.ts",
 		"emoji": "ts-node src/cli/emoji-cli.ts",
 		"build": "tsc",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "ts-node emojiTests.ts"
 	},
 	"keywords": [
 		"emoji",

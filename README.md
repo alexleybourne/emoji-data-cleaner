@@ -39,34 +39,55 @@ yarn emoji clean
 # Show statistics about the emoji data
 yarn emoji info
 
+# Generate TypeScript type definitions
+yarn emoji types
+
 # Display help information
 yarn emoji help
+
+# Run tests
+yarn test
+# or if you don't have yarn installed
+npx ts-node emojiTests.ts
 ```
 
 ### 🧩 Using the Optimized Data
 
-Once processed, you can import and use the optimized data in your project:
+Once processed, you can use the data in multiple ways:
+
+#### Direct Import
 
 ```typescript
 import emojiData from './EmojiData.json';
 
 // Access emojis by category
 const peopleEmojis = emojiData['People & Body'];
+```
 
-// Search for emojis by name
-const findEmojiByName = (searchTerm) => {
-  const term = searchTerm.toLowerCase();
-  for (const category in emojiData) {
-    const result = emojiData[category].find(
-      emoji => emoji.n.some(name => name.includes(term))
-    );
-    if (result) return result;
-  }
-  return null;
-};
+#### Using Utility Functions
 
-// Look up an emoji
-const thumbsUp = findEmojiByName('thumbs up');
+The project includes a utility library with helpful functions:
+
+```typescript
+import emojiUtil from './emojiUtil';
+
+// Find an emoji by name
+const thumbsUp = emojiUtil.findEmojiByName('thumbs up');
+
+// Get all emojis from a category
+const smileys = emojiUtil.getEmojisByCategory('Smileys & Emotion');
+
+// Convert unicode to emoji character
+const thumbsUpChar = emojiUtil.unicodeToEmoji('1F44D');
+
+// Get random emoji
+const randomEmoji = emojiUtil.getRandomEmoji();
+
+// Get all emoji categories
+const categories = emojiUtil.getCategories();
+
+// Get emoji with skin tone
+const thumbsUpWithSkinTone = emojiUtil.getSkinToneEmoji(thumbsUp, 0); // Light skin tone
 ```
 
 ## 💾 Data Format
@@ -91,6 +112,48 @@ Where:
 - `n`: Array of names, including the primary name and alternatives
 - `u`: Unicode representation of the emoji
 - `v`: Optional array of skin tone variations (using the u- prefix to save space)
+
+## 📐 TypeScript Support
+
+The project includes full TypeScript support with automatically generated type definitions:
+
+- **Dynamic Types**: Types are generated based on the actual data, ensuring type safety
+- **Category-Specific Types**: Each emoji category has its own type
+- **Type-Safe Access**: Use the EmojiCategoryType union for type-safe category access
+
+```typescript
+import { EmojiCategories, EmojiCategoryType, CompactEmoji } from './emojiTypes';
+import emojiData from './EmojiData.json';
+
+// Type-safe data
+const data = emojiData as EmojiCategories;
+
+// Type-safe category access
+const category: EmojiCategoryType = 'Smileys & Emotion';
+const smileys = data[category];
+```
+
+## 🧪 Testing
+
+The project includes a comprehensive test suite to ensure all functionality works correctly. Run the tests with:
+
+```bash
+yarn test
+# or if you don't have yarn installed
+npx ts-node emojiTests.ts
+```
+
+Tests include:
+
+- **Category Tests**: Verifies all expected emoji categories exist
+- **Search Tests**: Ensures emoji can be found by name correctly
+- **Skin Tone Tests**: Verifies skin tone variations work properly
+- **Unicode Tests**: Checks conversion between unicode and emoji characters
+- **Random Tests**: Ensures random emoji selection works as expected
+- **Count Tests**: Validates emoji counting functions
+- **Type Tests**: Verifies TypeScript types are working correctly
+
+Test output includes clear pass/fail indicators and a summary of results.
 
 ## 📜 License
 

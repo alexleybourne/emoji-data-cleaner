@@ -1,8 +1,22 @@
 /**
+ * 🏗️ Emoji Types Generator
+ * Generates TypeScript type definitions dynamically based on actual emoji data
+ */
+
+import * as fs from 'fs';
+
+// Function to generate the type definitions file
+const generateTypeDefinitions = () => {
+  // Read the emoji data file to extract categories
+  const emojiData = JSON.parse(fs.readFileSync('./EmojiData.json', 'utf8'));
+  const categories = Object.keys(emojiData);
+
+  // Create the type content
+  const typeContent = `/**
  * 📝 Type definitions for emoji data structure
  * 
  * AUTOMATICALLY GENERATED - DO NOT EDIT MANUALLY
- * Generated on: 2025-03-28T13:30:09.655Z
+ * Generated on: ${new Date().toISOString()}
  * 
  * Our emoji data is stored in a compact format to minimize file size
  * while maintaining all necessary information for functionality.
@@ -45,7 +59,7 @@ export type CompactEmoji = {
  * EmojiCategoryType - A union type of all available category names
  * This can be used for type-safe category access
  */
-export type EmojiCategoryType = 'Symbols' | 'Activities' | 'Flags' | 'Travel & Places' | 'Food & Drink' | 'Animals & Nature' | 'People & Body' | 'Objects' | 'Component' | 'Smileys & Emotion';
+export type EmojiCategoryType = ${categories.map(category => `'${escapeString(category)}'`).join(' | ')};
 
 /**
  * EmojiCategories represents the structure of our emoji data file
@@ -67,4 +81,18 @@ export type EmojiCategories = {
  * // Type-safe category access
  * const category: EmojiCategoryType = 'Smileys & Emotion';
  * const smileys = data[category];
- */
+ */`;
+
+  // Write the generated type to file
+  fs.writeFileSync('./emojiTypes.ts', typeContent);
+  
+  console.log('🎭 EmojiScript: Type definitions generated successfully!');
+};
+
+// Helper function to escape string for TypeScript
+const escapeString = (str: string) => {
+  return str.replace(/'/g, "\\'");
+};
+
+// Execute the generation
+generateTypeDefinitions(); 

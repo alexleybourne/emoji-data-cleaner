@@ -2,6 +2,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { execSync } from 'child_process';
 
 const args = process.argv.slice(2);
 const command = args[0];
@@ -17,11 +18,13 @@ Usage:
 Commands:
   clean      Clean and optimize emoji data
   info       Display information about the emoji data
+  types      Generate TypeScript type definitions
   help       Show this help message
   
 Examples:
   yarn emoji clean     # Process RawEmojiData.json to create optimized EmojiData.json
   yarn emoji info      # Show statistics about the emoji data files
+  yarn emoji types     # Generate TypeScript types based on the emoji data
 `);
 };
 
@@ -43,6 +46,16 @@ const clean = () => {
     }
   } catch (err) {
     console.error('❌ Error running clean script:', err);
+  }
+};
+
+// Generate type definitions
+const generateTypes = () => {
+  try {
+    console.log('🔄 Generating type definitions...');
+    execSync('npx ts-node generateEmojiTypes.ts', { stdio: 'inherit' });
+  } catch (err) {
+    console.error('❌ Error generating type definitions:', err);
   }
 };
 
@@ -101,6 +114,9 @@ switch (command) {
     break;
   case 'info':
     showInfo();
+    break;
+  case 'types':
+    generateTypes();
     break;
   case 'help':
   default:
