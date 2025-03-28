@@ -131,13 +131,37 @@ const testSkinTones = () => {
     logSuccess(`Found emoji with skin tones: ${emojiWithSkinTones.n[0]}`);
     passed++;
     
-    // Test skin tone conversion
-    const skinToneEmoji = emojiUtil.getSkinToneEmoji(emojiWithSkinTones, 0);
-    if (skinToneEmoji) {
-      logSuccess('Successfully converted skin tone variation');
-      passed++;
+    // Test getting all skin tone variations
+    const allVariants = emojiUtil.getAllSkinToneVariants(emojiWithSkinTones);
+    if (allVariants && Object.keys(allVariants).length > 0) {
+      logSuccess(`Successfully retrieved all ${Object.keys(allVariants).length} skin tone variants`);
+      
+      // Check if tone names are properly added
+      const expectedTones = ['light', 'medium-light', 'medium', 'medium-dark', 'dark'];
+      const foundTones = Object.keys(allVariants);
+      
+      // Check if at least some expected tone names are present (based on how many variants we have)
+      const matchingTones = expectedTones.filter(tone => foundTones.includes(tone));
+      if (matchingTones.length > 0) {
+        logSuccess(`Found expected tone names: ${matchingTones.join(', ')}`);
+        passed++;
+      } else {
+        logFailure('Missing expected tone names');
+        failed++;
+      }
+      
+      // Check that emojis are properly rendered
+      const emojiChars = Object.values(allVariants);
+      if (emojiChars.every(char => char && char.length > 0)) {
+        logSuccess('All emoji characters are properly rendered');
+        passed++;
+      } else {
+        logFailure('Some emoji characters failed to render');
+        failed++;
+      }
+      
     } else {
-      logFailure('Failed to convert skin tone variation');
+      logFailure('Failed to retrieve all skin tone variants');
       failed++;
     }
   } else {

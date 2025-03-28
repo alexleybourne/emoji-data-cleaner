@@ -77,18 +77,28 @@ export const getCategories = (): EmojiCategoryType[] => {
 };
 
 /**
- * Convert skin tone variation to emoji character
+ * Get all skin tone variations for an emoji
+ * Returns an object with each tone variation as keys and emoji characters as values
  */
-export const getSkinToneEmoji = (emoji: CompactEmoji, skinToneIndex: number): string | null => {
-  if (!emoji.v || !emoji.v[skinToneIndex]) return null;
+export const getAllSkinToneVariants = (emoji: CompactEmoji): Record<string, string> | null => {
+  if (!emoji.v || emoji.v.length === 0) return null;
   
-  // Extract the skin tone code from the variation
-  const skinTone = emoji.v[skinToneIndex].replace('u-', '');
+  const skinToneMap: Record<string, string> = {};
+  const toneNames = ['light', 'medium-light', 'medium', 'medium-dark', 'dark'];
   
-  // Form the complete unicode by combining the base emoji code with the skin tone
-  const combinedUnicode = `${emoji.u}-${skinTone}`;
+  emoji.v.forEach((variation, index) => {
+    // Extract the skin tone code from the variation
+    const skinTone = variation.replace('u-', '');
+    
+    // Form the complete unicode by combining the base emoji code with the skin tone
+    const combinedUnicode = `${emoji.u}-${skinTone}`;
+    
+    // Add to the map with descriptive keys
+    const toneName = index < toneNames.length ? toneNames[index] : `tone-${index + 1}`;
+    skinToneMap[toneName] = unicodeToEmoji(combinedUnicode);
+  });
   
-  return unicodeToEmoji(combinedUnicode);
+  return skinToneMap;
 };
 
 /**
@@ -110,6 +120,6 @@ export default {
   unicodeToEmoji,
   getRandomEmoji,
   getCategories,
-  getSkinToneEmoji,
+  getAllSkinToneVariants,
   getTotalEmojiCount,
 }; 
