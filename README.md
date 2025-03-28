@@ -100,4 +100,69 @@ console.log(skinToneVariants);
 
 ## 💾 Data Format
 
-The optimized `
+The optimized `EmojiData.json` uses the following compact structure:
+
+```typescript
+{
+  "Category Name": [
+    {
+      "n": ["emoji name", "alternative name", "another name"],
+      "u": "1F44D",  // Unicode codepoint
+      "v": ["u-1F3FB", "u-1F3FC"]  // Optional skin tone variations (optimized!)
+    },
+    // More emojis...
+  ],
+  // More categories...
+}
+```
+
+Where:
+- `n`: Array of names, including the primary name and alternatives
+- `u`: Unicode representation of the emoji
+- `v`: Optional array of skin tone variations (using the u- prefix to save space)
+
+## 📐 TypeScript Support
+
+The project includes full TypeScript support with automatically generated type definitions:
+
+- **Dynamic Types**: Types are generated based on the actual data, ensuring type safety
+- **Category-Specific Types**: All emoji categories are mapped in a type-safe way
+- **Type-Safe Access**: Use the EmojiCategoryType union for type-safe category access
+
+```typescript
+import { EmojiCategories, EmojiCategoryType, CompactEmoji } from './emojiTypes';
+import emojiData from './EmojiData.json';
+
+// Type-safe data
+const data = emojiData as EmojiCategories;
+
+// Type-safe category access
+const category: EmojiCategoryType = 'Smileys & Emotion';
+const smileys = data[category];
+```
+
+## 🧪 Testing
+
+The project includes a comprehensive test suite to ensure all functionality works correctly. Run the tests with:
+
+```bash
+yarn test
+# or if you don't have yarn installed
+npx ts-node emojiTests.ts
+```
+
+Tests include:
+
+- **Category Tests**: Verifies all expected emoji categories exist
+- **Search Tests**: Ensures emoji can be found by name correctly
+- **Skin Tone Tests**: Verifies skin tone variations work properly
+- **Unicode Tests**: Checks conversion between unicode and emoji characters
+- **Random Tests**: Ensures random emoji selection works as expected
+- **Count Tests**: Validates emoji counting functions
+- **Type Tests**: Verifies TypeScript types are working correctly
+
+Test output includes clear pass/fail indicators and a summary of results.
+
+## 📜 License
+
+This project is available under the MIT License. The original emoji data is from iamcal's emoji-data project.
