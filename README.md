@@ -106,7 +106,7 @@ The optimized `EmojiData.json` uses the following compact structure:
 {
   "Category Name": [
     {
-      "n": ["emoji name", "alternative name", "another name"],
+      "n": ["emoji name", "alternative name", "another name"], // First value is the name and the rest are search terms
       "u": "1F44D",  // Unicode codepoint
       "v": ["u-1F3FB", "u-1F3FC"]  // Optional skin tone variations (optimized!)
     },
